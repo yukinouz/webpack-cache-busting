@@ -11,7 +11,8 @@ module.exports = {
   entry: `./src/index.js`,
   output: {
     filename: "[name].[contenthash].js",
-    path: path.resolve(__dirname, "dist")
+    path: path.resolve(__dirname, "dist"),
+    publicPath: '',
   },
   devServer: {
     contentBase: "./dist",
@@ -38,6 +39,20 @@ module.exports = {
             },
           },
         ],
+      },
+      {
+        test: /\.html$/,
+        use: ['html-loader']
+      },
+      {
+        test: /\.(svg|png|jpe?g|gif)$/i,
+        use: [{
+          loader: "file-loader",
+          options: {
+            name: './[path][name].[ext]',
+            outputPath: 'imgs',
+          },
+        }]
       },
     ],
   },
