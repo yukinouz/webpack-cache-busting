@@ -1,11 +1,15 @@
 {
   "scripts": {
-    "build": "webpack serve",
+    "build": "webpack",
     "start": "webpack --config webpack.config.js",
-    "watch": "webpack --watch"
+    "watch": "webpack serve --open"
   },
   "devDependencies": {
+    "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^5.0.1",
+    "file-loader": "^6.2.0",
+    "html-loader": "^1.3.2",
+    "html-webpack-plugin": "^4.5.1",
     "node-sass": "^5.0.0",
     "sass-loader": "^10.1.1",
     "style-loader": "^2.0.0",

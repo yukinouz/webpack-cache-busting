@@ -1,13 +1,20 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin'); 
+const webpack = require('webpack'); 
 const path = require("path");
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-const MODE = "production";
+const MODE = "development";
 const enabledSourceMap = MODE === "development";
 
 module.exports = {
   mode: MODE,
   entry: `./src/index.js`,
+  output: {
+    filename: "[name].[contenthash].js",
+    path: path.resolve(__dirname, "dist")
+  },
   devServer: {
-    contentBase: "dist",
+    contentBase: "./dist",
     open: true
   },
   module: {
@@ -21,10 +28,7 @@ module.exports = {
             options: {
               url: false,
               sourceMap: enabledSourceMap,
-              // 0 => no loaders (default);
-              // 1 => postcss-loader;
-              // 2 => postcss-loader, sass-loader
-              importLoaders: 2
+              importLoaders: 2 // postcss-loader, sass-loader
             }
           },
           {
@@ -37,10 +41,13 @@ module.exports = {
       },
     ],
   },
-  // ES5(IE11等)向けの指定（webpack 5以上で必要）
-  target: ["web", "es5"],
-  output: {
-    filename: "main.js",
-    path: path.resolve(__dirname, "dist")
-  }
+  target: ["web", "es5"],   // ES5(IE11等)向けの指定（webpack 5以上で必要）
+  plugins: [
+    new HtmlWebpackPlugin({
+      // filename: 'index.html',
+      template: "./src/template.html",
+      minify: false
+    }),
+    new CleanWebpackPlugin(),
+  ]
 };
