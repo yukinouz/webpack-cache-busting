@@ -1,6 +1,6 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin'); 
 const webpack = require('webpack'); 
 const path = require("path");
+const HtmlWebpackPlugin = require('html-webpack-plugin'); 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const MODE = "development";
@@ -8,18 +8,34 @@ const enabledSourceMap = MODE === "development";
 
 module.exports = {
   mode: MODE,
-  entry: `./src/index.js`,
+  entry: `./src/js/app.js`,
   output: {
     filename: "[name].[contenthash].js",
     path: path.resolve(__dirname, "dist"),
     publicPath: '',
   },
   devServer: {
-    contentBase: "./dist",
-    open: true
+    contentBase: path.resolve(__dirname, 'dist'),
+    watchContentBase: true,
+    open: true,
   },
   module: {
     rules: [
+      {
+        test: /\.js$/,
+        // IE対応 除外設定にSwiperを含めない
+        exclude: /node_modules\/(?!(dom7|ssr-window|swiper)\/).*/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                '@babel/preset-env', // ES2020 を ES5 に変換
+              ]
+            }
+          }
+        ]
+      },
       {
         test: /\.scss/,
         use: [
@@ -31,6 +47,17 @@ module.exports = {
               sourceMap: enabledSourceMap,
               importLoaders: 2 // postcss-loader, sass-loader
             }
+          },
+          {
+            loader: "postcss-loader",
+            options: {
+              // sourceMap: true,
+              postcssOptions: {
+                plugins: [
+                  ["autoprefixer", { grid: true }],
+                ],
+              },
+            },
           },
           {
             loader: "sass-loader",
@@ -64,5 +91,10 @@ module.exports = {
       minify: false
     }),
     new CleanWebpackPlugin(),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      "jQuery":"jquery",
+      "window.jQuery":"jquery"
+    }),
   ]
 };
