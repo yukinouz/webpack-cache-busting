@@ -1,5 +1,5 @@
 export function jqueryCode() {
   $(window).on('load', () => {
-    console.log('hello');
+    console.log('hello from jquery');
   })
 }

@@ -55,6 +55,13 @@ module.exports = {
               postcssOptions: {
                 plugins: [
                   ["autoprefixer", { grid: true }],
+                  require('css-mqpacker')(),
+                  require('css-declaration-sorter')({
+                    order: 'alphabetical'
+                  }),
+                  require('postcss-custom-properties')({
+                    preserve: false
+                  })
                 ],
               },
             },
@@ -64,6 +71,9 @@ module.exports = {
             options: {
               sourceMap: enabledSourceMap
             },
+          },
+          {
+            loader: 'import-glob-loader',
           },
         ],
       },

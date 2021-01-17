@@ -1,0 +1,16 @@
+body {
+  color: #000;
+  font-family: "Noto Sans JP", "Helvetica Neue", Arial,
+    "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+  font-size: 1.2em;
+  font-weight: 400;
+  letter-spacing: 0.07em;
+  line-height: 1.91;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%; // iPhoneのフォントサイズ自動調整をオフにする
+  width: 100%;
+  @media only screen and (min-width: 768px) {
+    font-size: 1.4em;
+    line-height: 1.86;
+  }
+}

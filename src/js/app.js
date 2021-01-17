@@ -1,7 +1,7 @@
 import { jqueryCode } from './module/jquery';
 
 jqueryCode();
-console.log('hell');
+console.log('hello from app.js');
 
 import { run } from "../app/app";
 import "../scss/app.scss";

@@ -1,3 +1,17 @@
+@import 'foundation/**';
+
 body {
   background-color: red;
+  @media only screen and (min-width: 768px) {
+    background: blue;
+  }
 }
+
+.hoge{
+  display: flex;
+  align-items: center;
+  @media only screen and (min-width: 768px) {
+    justify-content: space-around;
+  }
+}
+
